@@ -24,6 +24,7 @@
                 ffdfsdasdffds
             </a>
             <hr>
+            
         </marquee>
     </div>
 </div>
@@ -66,13 +67,14 @@
     <div class="card-body">
         <form>
             <div class="mb-3">
-                <input type="text"
-                    class="form-control form-control-sm"
-                    placeholder="Enter your email">
+                <input type="text" id="alertEmail" class="form-control form-control-sm" placeholder="Enter your email">
+                <div id="alertEmailError" class="invalid-feedback"></div>
+                <div id="alertSuccess" class="text-success small mt-1"></div>
             </div>
             <div class="text-center">
-                <button class="btn btn-theme btn-sm px-4 text-white">
-                    subscribe
+                <button type="button" class="btn btn-theme btn-sm px-4 text-white"
+                    onclick="subscribe('alertEmail','alertEmailError','alertSuccess','Email alert subscribed successfully.')">
+                    Subscribe
                 </button>
             </div>
         </form>
