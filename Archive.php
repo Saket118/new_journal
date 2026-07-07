@@ -1,5 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
 
-<style>
+<head>
+   <?php include_once "./include/link.php"; ?>
+   <?php
+ $page = $functions->getSinglePageData("Archives");
+ ?>
+ <title><?= $page["meta_title"] ?></title>
+ <meta name="description" content=<?= $page["meta_desc"] ?>>
+ <?php
+$keywords = preg_split('/\r\n|\r|\n/', trim($page['meta_key']));
+?>
+<meta name="keywords" content="<?= implode(', ', $keywords) ?>">
+ <meta name="robots" content="index, follow">
+ <link rel="canonical" href="">
+ <style>
     /* Cards */
   .archive-card {
         border: 1px solid #dfdfe0;
@@ -11,8 +26,9 @@
         box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .08) !important;
     }
 </style>
-
-<?php include_once "../include/header.php"; ?>
+</head>
+<body>
+<?php include_once "./include/header.php"; ?>
 
 
 
@@ -110,4 +126,6 @@
 
 </div>
 
-<?php include_once "../include/footer.php"; ?>
+<?php include_once "./include/footer.php"; ?>
+</body>
+</html>

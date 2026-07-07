@@ -1,9 +1,21 @@
 
-<?php include_once "../include/header.php"; ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+   <?php include_once "./include/link.php"; ?>
+   <?php
+ $page = $functions->getSinglePageData("Current Issue");
+ ?>
+ <title><?= $page["meta_title"] ?></title>
+ <meta name="description" content=<?= $page["meta_desc"] ?>>
+ <?php
+$keywords = preg_split('/\r\n|\r|\n/', trim($page['meta_key']));
+?>
+<meta name="keywords" content="<?= implode(', ', $keywords) ?>">
+ <meta name="robots" content="index, follow">
+ <link rel="canonical" href="">
 
-
-
-<style>
+ <style>
  /* --- current issue  Tabs --- */
 #article-tabs .nav-link {
     color: #334155 !important; 
@@ -23,6 +35,9 @@
     box-shadow: 0 4px 12px rgba(13, 148, 136, 0.2); 
 }
 </style>
+</head>
+<body>
+<?php include_once "./include/header.php"; ?>
 
 <section class="container-fluid py-5 ">
 
@@ -290,5 +305,7 @@ asdfghj
 
 
 
-<?php include_once "../include/footer.php"; ?>
+<?php include_once "./include/footer.php"; ?>
 
+</body>
+</html>

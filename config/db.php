@@ -1,11 +1,10 @@
 <?php
 
 class Database
-{
-    private $host = "localhost";
-    private $user = "root";
-    private $password = "";
-    private $database = "yemen_demo";
+{   private $host = "localhost";
+   private $user = "root";
+   private $password = "";
+private $database = "yemen_demo";
 
     public $conn;
 

@@ -1,7 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <?php include_once "./include/link.php"; ?>
+   <?php
+ $page = $functions->getSinglePageData("Contact Us");
+ ?>
+ <title><?= $page["meta_title"] ?></title>
+ <meta name="description" content=<?= $page["meta_desc"] ?>>
+ <?php
+$keywords = preg_split('/\r\n|\r|\n/', trim($page['meta_key']));
+?>
+<meta name="keywords" content="<?= implode(', ', $keywords) ?>">
+ <meta name="robots" content="index, follow">
+ <link rel="canonical" href="">
+</head>
+<body>
 
-
-
-<?php include_once "../include/header.php"; ?>
+<?php include_once "./include/header.php"; ?>
 
 
 <!-- Contact Form -->
@@ -58,7 +73,7 @@
     </div>
 </div>
 
-<?php include_once "../include/footer.php"; ?>
+<?php include_once "./include/footer.php"; ?>
 
 <!-- ////////////// -->
 <script>
@@ -96,3 +111,6 @@
         return true;
     }
 </script>
+
+</body>
+</html>

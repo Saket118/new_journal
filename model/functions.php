@@ -1,47 +1,33 @@
-
 <?php
 
-require_once "./connection/db.php";
+require_once "./config/db.php";
 
-$db = new Database();
-$conn = $db->getConnection();
-
-
-function getHeader($conn, $org_id)
+class functions
 {
+    private $conn;
+    private $org_id;
+    public function __construct()
+    {
+        $db = new Database();
+        $this->conn = $db->getConnection();
+        $this->org_id= 1;
+    }
 
-    $query = "SELECT header_text, clogo, issn
-              FROM header_footer_master
-              WHERE org_id = $org_id";
+    public function getSinglePageData($page_name)
+    {
+        $stmt = $this->conn->prepare("
+            SELECT page_title, meta_title, meta_desc, meta_key, page_content
+            FROM page_master
+            WHERE org_id = $this->org_id
+            AND page_title = ?
+            AND page_sts = 1
+            LIMIT 1
+        ");
+        $stmt->bind_param("s",$page_name);
+        $stmt->execute();
 
-    $result = mysqli_query($conn, $query);
-    return mysqli_fetch_assoc($result);
+        $result = $stmt->get_result();
+        return $result->fetch_assoc();
+    }
+
 }
-
-
-// function getPageData($conn, $org_id, )
-// {
-    
-//     $query = "SELECT page_id, page_title, page_content
-//               FROM page_master
-//               WHERE org_id = $org_id
-//               AND page_sts = 1";
-
-//     $result = mysqli_query($conn, $query);
-//     return mysqli_fetch_assoc($result);
-// }
-
-// function getSinglePageData($conn, $org_id, $page_id)
-// {
-//     $org_id = (int)$org_id;
-//     $page_id = (int)$page_id;
-
-//     $query = "SELECT * FROM page_master 
-//               WHERE org_id = $org_id 
-//               AND page_id = $page_id 
-//               AND page_sts = 1 
-//               LIMIT 1";
-
-//     $result = mysqli_query($conn, $query);
-//     return mysqli_fetch_assoc($result);
-// }

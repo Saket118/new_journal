@@ -1,4 +1,4 @@
-<?php include_once "link.php"?>
+
 <header>
     <!-- Top Bar -->
     <div class="top-bar-premium text-light py-1 d-none d-md-block">
