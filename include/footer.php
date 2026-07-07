@@ -10,65 +10,65 @@
 
                 <!-- Column 1: About Section -->
                 <div class="col-lg-3 col-md-6">
-                    <h6 class="footer-heading-accent mb-3">About JAPS</h6>
-                    <p class="text-dark lh-base mb-4" style="font-size: 15px; text-align: justify;">
+                    <h6 class="   footer-heading-accent text-dark fw-semibold text-uppercase border-start border-3 border-dark mb-3">About JAPS</h6>
+                    <p class="text-dark lh-base mb-4" style="font-size: 14px; text-align: justify;">
                         The Journal of Applied Pharmaceutical Science is a monthly open-access journal dedicated to
                         various
                         disciplines of pharmaceutical and allied sciences.
-                        <a class="text-info fw-semibold text-decoration-none d-inline-block" href="#">Read more </a>
+                        <a class="text-dark" href="#">Read more </a>
                     </p>
                     <div>
                         <span class="d-block small text-uppercase text-dark fw-semibold mb-2"
                             style="font-size: 12px; letter-spacing: 0.5px;">Connect With Us</span>
                         <div class="d-flex gap-1">
-                            <a href="#" target="_blank" class="footer-social-icon"><i class="bi bi-facebook"></i></a>
-                            <a href="#" target="_blank" class="footer-social-icon"><i class="bi bi-twitter-x"></i></a>
-                            <a href="#" target="_blank" class="footer-social-icon"><i class="bi bi-linkedin"></i></a>
+                            <a href="#" target="_blank" class="footer-social-icon d-inline-flex align-items-center justify-content-center rounded-2 text-secondary text-decoration-none"><i class="bi bi-facebook" style="color:#1877F2;"></i></a>
+                            <a href="#" target="_blank" class="footer-social-icon d-inline-flex align-items-center justify-content-center rounded-2 text-secondary text-decoration-none"><i class="bi bi-twitter-x" style="color:#000000;"></i></a>
+                            <a href="#" target="_blank" class="footer-social-icon d-inline-flex align-items-center justify-content-center rounded-2 text-secondary text-decoration-none"><i class="bi bi-linkedin" style="color:#0A66C2;"></i></a>
                         </div>
                     </div>
                 </div>
 
                 <!-- Column 2: Important Links -->
                 <div class="col-lg-3 col-md-6">
-                    <h6 class="footer-heading-accent mb-3">Important Links</h6>
+                    <h6 class=" footer-heading-accent text-dark fw-semibold text-uppercase border-start border-3 border-dark mb-3">Important Links</h6>
                     <ul class="list-unstyled footer-links d-flex flex-column gap-3">
                         <!-- Gap badha kar 3 kiya text clear dikhne ke liye -->
-                        <li><a href="#"><i class="bi bi-chevron-right small me-2 opacity-50"></i> Archived Issues</a>
+                        <li><a href="#"><i class=" bi bi-chevron-right small me-2 icon_color "></i> Archived Issues</a>
                         </li>
-                        <li><a href="#"><i class="bi bi-chevron-right small me-2 opacity-50"></i> Editorial Board</a>
+                        <li><a href="#"><i class="bi bi-chevron-right small me-2 icon_color "></i> Editorial Board</a>
                         </li>
-                        <li><a href="#"><i class="bi bi-chevron-right small me-2 opacity-50"></i> Submit Manuscript</a>
+                        <li><a href="#"><i class="bi bi-chevron-right small me-2 icon_color "></i> Submit Manuscript</a>
                         </li>
-                        <li><a href="#"><i class="bi bi-chevron-right small me-2 opacity-50"></i> Author Guidelines</a>
+                        <li><a href="#"><i class="bi bi-chevron-right small me-2 icon_color "></i> Author Guidelines</a>
                         </li>
-                        <li><a href="#"><i class="bi bi-chevron-right small me-2 opacity-50"></i> Abstracting &
+                        <li><a href="#"><i class="bi bi-chevron-right small me-2 icon_color "></i> Abstracting &
                                 Indexing</a></li>
                     </ul>
                 </div>
 
                 <!-- Column 3: Journal Policies -->
                 <div class="col-lg-3 col-md-6">
-                    <h6 class="footer-heading-accent mb-3">Journal Policies</h6>
+                    <h6 class=" footer-heading-accent text-dark fw-semibold text-uppercase border-start border-3 border-dark mb-3">Journal Policies</h6>
                     <ul class="list-unstyled footer-links d-flex flex-column gap-3">
-                        <li><a href="#"><i class="bi bi-shield-check small me-2 opacity-50"></i> Open Access Policy</a>
+                        <li><a href="#"><i class="bi bi-shield-check small icon_color me-2  "></i> Open Access Policy</a>
                         </li>
-                        <li><a href="#"><i class="bi bi-shield-check small me-2 opacity-50"></i> Peer-review
+                        <li><a href="#"><i class="bi bi-shield-check small icon_color me-2 "></i> Peer-review
                                 Framework</a></li>
-                        <li><a href="#"><i class="bi bi-shield-check small me-2 opacity-50"></i> Waiver
+                        <li><a href="#"><i class="bi bi-shield-check small me-2 icon_color "></i> Waiver
                                 Configurations</a></li>
-                        <li><a href="#"><i class="bi bi-shield-check small me-2 opacity-50"></i> Licensing &amp;
+                        <li><a href="#"><i class="bi bi-shield-check small me-2 icon_color "></i> Licensing &amp;
                                 Copyright</a></li>
-                        <li><a href="#"><i class="bi bi-shield-check small me-2 opacity-50"></i> Digital
+                        <li><a href="#"><i class="bi bi-shield-check small me-2 icon_color  "></i> Digital
                                 Preservation</a></li>
-                        <li><a href="#"><i class="bi bi-shield-check small me-2 opacity-50"></i> Plagiarism Matrix</a>
+                        <li><a href="#"><i class="bi bi-shield-check small me-2 icon_color  "></i> Plagiarism Matrix</a>
                         </li>
                     </ul>
                 </div>
 
                 <!-- Column 4: Contact Us Box -->
                 <div class="col-lg-3 col-md-6">
-                    <h6 class="footer-heading-accent mb-3">Contact Us</h6>
-                    <div class="p-3 contact-details-box text-dark d-flex flex-column gap-3 shadow-sm">
+                    <h6 class=" footer-heading-accent text-dark fw-semibold text-uppercase border-start border-3 border-dark mb-3">Contact Us</h6>
+                    <div class="p-3 contact-details-box border border-dark rounded text-dark d-flex flex-column gap-3 shadow-sm">
                         <div>
                             <span class="d-block fw-semibold text-dark mb-2" style="font-size: 15px;"><i
                                     class="bi bi-envelope-fill text-dark me-2"></i> For Queries:</span>
@@ -81,7 +81,7 @@
                         <div>
                             <span class="d-block fw-semibold text-dark mb-2" style="font-size: 15px;"><i
                                     class="bi bi-geo-alt-fill text-dark me-2"></i> Postal Address:</span>
-                            <span style="font-size: 13.5px; line-height: 1.6" class="d-block text-dark">
+                            <span class="d-block text-dark">
                                 Open Science Publishers LLP,<br>
                                 L-702, Sun Valley, Dongarpur Road,<br>
                                 Gwalior-474001, M.P., India.

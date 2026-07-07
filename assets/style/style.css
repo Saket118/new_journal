@@ -9,28 +9,7 @@ h1,h2,h3,h4,h5,h6{
     background: #9E8D65;
 }
 
-.text-green {
-    color: #0d9488;
-}
 
-.side_border {
-    border-left: 1px dashed #707070;
-}
-/* Outline Button */
-.btn-outline-theme {
-    background: transparent;
-    color: #514018 !important;
-    border: 1px solid #514018;
-    transition: .3s;
-}
-
-.btn-outline-theme:hover,
-.btn-outline-theme:focus,
-.btn-outline-theme:active {
-    background: #514018 !important;
-    border-color: #514018 !important;
-    color: #fff !important;
-}
 .btn-theme,
 .btn-cta-premium {
     background: #514018;
@@ -165,18 +144,107 @@ h1,h2,h3,h4,h5,h6{
     transform: translateY(-5px) scale(1.025);
 }
 
-.journal-desc,
-.journal-issn {
+.journal-desc {
     font-size: 15px;
 }
 
-.journal-issn {
-    font-weight: 600;
+
+@media (max-width:768px) {
+    .journal-logo {
+        width: 65px !important;
+        height: 65px !important;
+        margin-right: .75rem !important;
+    }
+
+    .journal-title {
+        font-size: 19px !important;
+    }
 }
 
 
+/* --- Footer --- */
+.journal-footer-base {
+    background: #EBDAB2;
+    color: #94a3b8;
+    font-size: 13px;
+}
+
+.footer-heading-accent {
+
+    font-size: 17px;
+    font-weight: 600;
+    /* text-transform: uppercase;
+    border-left: 3px solid #fff; */
+    padding-left: 10px;
+}
+
+.footer-links a {
+    color: black !important;
+    text-decoration: none;
+    transition: .25s;
+}
+
+.footer-links a:hover {
+    color: #514018 !important;
+    font-weight: 600;
+    transform: translateX(5px);
+}
+.icon_color{
+    color: #514018;
+}
+
+
+.footer-social-icon {
+    width: 35px;
+    height: 35px;
+    background: #EBDAB2;
+    /* display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px; */
+    /* color: #94a3b8 !important; */
+}
+
+.contact-details-box {
+    background: #9E8D65;
+    /* border: 1px solid #334155;
+    border-radius: 12px;
+    font-size: 14.5px; */
+}
+
+
+
+/* .text-green {
+    color: #0d9488;
+} */
+
+/* .side_border {
+    border-left: 1px dashed #707070;
+} */
+ 
+/* Outline Button */
+/* .btn-outline-theme {
+    background: transparent;
+    color: #514018 !important;
+    border: 1px solid #514018;
+    transition: .3s;
+}
+
+.btn-outline-theme:hover,
+.btn-outline-theme:focus,
+.btn-outline-theme:active {
+    background: #514018 !important;
+    border-color: #514018 !important;
+    color: #fff !important;
+} */
+
+/* .journal-issn {
+    font-weight: 600;
+} */
+
+
 /* --- Stats Cards --- */
-.stat-card {
+/* .stat-card {
     background: #fff;
     border: 1px solid #e2e8f0;
     border-radius: 18px;
@@ -270,65 +338,7 @@ h1,h2,h3,h4,h5,h6{
 
 .research-card-wrapper .card {
     width: 300px;
-}
+} */
 
 
 /* --- Responsive Styles --- */
-@media (max-width:768px) {
-    .journal-logo {
-        width: 65px !important;
-        height: 65px !important;
-        margin-right: .75rem !important;
-    }
-
-    .journal-title {
-        font-size: 19px !important;
-    }
-}
-
-
-/* --- Footer --- */
-.journal-footer-base {
-    background: #EBDAB2;
-    color: #94a3b8;
-    font-size: 15.5px;
-}
-
-.footer-heading-accent {
-    color: black;
-    font-size: 17px;
-    font-weight: 600;
-    text-transform: uppercase;
-    border-left: 3px solid #fff;
-    padding-left: 10px;
-}
-
-.footer-links a {
-    color: black !important;
-    text-decoration: none;
-    transition: .25s;
-}
-
-.footer-links a:hover {
-    color: #514018 !important;
-    font-weight: 600;
-    transform: translateX(5px);
-}
-
-.footer-social-icon {
-    width: 35px;
-    height: 35px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 8px;
-    background: #1e293b;
-    color: #94a3b8 !important;
-}
-
-.contact-details-box {
-    background: #9E8D65;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    font-size: 14.5px;
-}
