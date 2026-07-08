@@ -14,7 +14,7 @@ echo $meta= $functions->meta_tag($page["meta_title"],$page["meta_desc"],$page["m
     <?php include_once "./include/header.php"; ?>
 
 
-    <div class="container-fluid">
+    <div class="container-fluid mb-5">
         <div class="row justify-content-center">
             <div class="col-lg-2">
                 <?php include_once "./include/left_sidebar.php"; ?>

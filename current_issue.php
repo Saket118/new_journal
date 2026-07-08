@@ -183,7 +183,7 @@
   </div>
 
 
-  <div class="container-fluid">
+  <div class="container-fluid mb-5">
     <div class="row p-2">
 
       <div class="col-lg-3 col-md-12 mb-4">

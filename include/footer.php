@@ -4,7 +4,7 @@
   style="bottom: 30px; right: 30px; width: 45px; height: 45px; z-index: 9999;" title="Go to top">
   <i class="bi bi-arrow-up"></i>
 </button>
-<footer class="pt-5 journal-footer-base mt-5">
+<footer class="pt-5 journal-footer-base ">
         <div class="container pb-3">
             <div class="row g-4 g-lg-5">
 
