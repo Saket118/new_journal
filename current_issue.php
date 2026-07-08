@@ -5,15 +5,11 @@
    <?php include_once "./include/link.php"; ?>
    <?php
  $page = $functions->getSinglePageData("Current Issue");
+ echo $meta= $functions->meta_tag($page["meta_title"],$page["meta_desc"],$page["meta_key"],$base_url.'current_issue');
+  $data = $functions->current_issue();
+
  ?>
- <title><?= $page["meta_title"] ?></title>
- <meta name="description" content=<?= $page["meta_desc"] ?>>
- <?php
-$keywords = preg_split('/\r\n|\r|\n/', trim($page['meta_key']));
-?>
-<meta name="keywords" content="<?= implode(', ', $keywords) ?>">
- <meta name="robots" content="index, follow">
- <link rel="canonical" href="">
+
 
  <style>
  /* --- current issue  Tabs --- */

@@ -20,10 +20,10 @@
 
             <div class="d-flex align-items-center gap-3">
 
-                <a href="#" class="top-bar-link">
+                <a href="<?= $base_url ?>" class="top-bar-link">
                     <i class="bi bi-box-arrow-in-right"></i> Login
                 </a>
-                <a href="register.php" class="top-bar-link">
+                <a href="<?= $base_url ?>/register.php" class="top-bar-link">
                     <i class="bi bi-person-plus"></i> Register
                 </a>
             </div>
@@ -91,10 +91,10 @@
             <ul class="navbar-nav align-items-lg-center gap-1 py-2 py-lg-0">
 
                 <li class="nav-item">
-                    <a class="nav-link nav-link-premium" href="index.php">Home</a>
+                    <a class="nav-link nav-link-premium" href="<?= $base_url ?>">Home</a>
                 </li>
 
-                <li class="nav-item dropdown">
+                <!-- <li class="nav-item dropdown">
                     <a class="nav-link nav-link-premium dropdown-toggle d-flex align-items-center gap-1" href="#"
                         data-bs-toggle="dropdown">
                         Journal Hub
@@ -103,34 +103,34 @@
                         <li><a class="dropdown-item dropdown-item-premium" href="#">About Journal</a></li>
                         <li><a class="dropdown-item dropdown-item-premium" href="#">Aims & Scope</a></li>
                     </ul>
+                </li> -->
+                <li class="nav-item">
+                    <a class="nav-link nav-link-premium" href="<?= $base_url ?>editorial_board.php">Editorial Board</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link nav-link-premium" href="<?= $base_url ?>current_issue.php">Current Issue</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link nav-link-premium" href="current_issue.php">Current Issue</a>
+                    <a class="nav-link nav-link-premium" href="<?= $base_url ?>Archive.php">Archives</a>
                 </li>
 
-                <li class="nav-item">
-                    <a class="nav-link nav-link-premium" href="Archive.php">Archives</a>
-                </li>
 
-                <li class="nav-item">
-                    <a class="nav-link nav-link-premium" href="editorial_board.php">Editorial Board</a>
-                </li>
-
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                     <a class="nav-link nav-link-premium" href="#">Online Submission</a>
+                </li> -->
+
+                <li class="nav-item">
+                    <a class="nav-link nav-link-premium" href="<?= $base_url ?>author_guidelines.php">Author Guidelines</a>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link nav-link-premium" href="#">Guidelines</a>
-                </li>
-
-                <li class="nav-item">
-                    <a class="nav-link nav-link-premium" href="contact.php">Contact</a>
+                    <a class="nav-link nav-link-premium" href="<?= $base_url ?>contact.php">Contact us</a>
                 </li>
 
                 <li class="nav-item ms-lg-3 mt-2 mt-lg-0">
-                    <a class="btn btn-cta-premium" href="#">
+                    <a class="btn btn-cta-premium" href="<?= $base_url ?>submit_manuscript.php">
                         Submit Manuscript
                     </a>
                 </li>

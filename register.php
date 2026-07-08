@@ -4,16 +4,9 @@
 <head>
     <?php include_once "./include/link.php"; ?>
     <?php
-    $page = $functions->getSinglePageData("Home");
+echo $meta= $functions->meta_tag("Register","","",$base_url."register.php");
     ?>
-    <title><?= $page["meta_title"] ?></title>
-    <meta name="description" content=<?= $page["meta_desc"] ?>>
-    <?php
-    $keywords = preg_split('/\r\n|\r|\n/', trim($page['meta_key']));
-    ?>
-    <meta name="keywords" content="<?= implode(', ', $keywords) ?>">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="">
+    
 </head>
 <body>
 <?php include_once "./include/header.php"; ?>
@@ -23,6 +16,13 @@
 <div class="container-fluid">
     <div class="row">
 
+        <div class="container">
+         <h2 class=""><?= !empty($page['meta_title']) ? $page['meta_title'] : "Register" ?></h2>   
+        
+           <div>
+           
+           </div>
+        </div>
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 px-5">
             <div class="m-lg-5 shadow">
 

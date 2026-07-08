@@ -1,4 +1,5 @@
 <?php
+$base_url= "http://localhost/new_journal/";
 include_once("./model/functions.php");
 $functions = new functions();
 ?>
