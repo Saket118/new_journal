@@ -31,7 +31,7 @@ echo $meta= $functions->meta_tag($page["meta_title"],$page["meta_desc"],$page["m
         <?php foreach ($data as $row) { ?>
             <div class="list-group-item d-flex justify-content-between align-items-center">
                 <span class="fw-semibold">
-                    <?= htmlspecialchars($row['issue_no']); ?>
+                 <a href="<?=$base_url."past_issues.php?issueid=".$row['issue_id']?>"><?= htmlspecialchars($row['issue_no']); ?></a>  
                 </span>
 
                 <small class="text-muted">

@@ -4,11 +4,14 @@
   <head>
    <?php include_once "./include/link.php"; ?>
    <?php
- $page = $functions->getSinglePageData("Current Issue");
- echo $meta= $functions->meta_tag($page["meta_title"],$page["meta_desc"],$page["meta_key"],$base_url.'current_issue');
-  $data = $functions->issue();
+ $id = isset($_GET['issueid']) ? $_GET['issueid'] : 0;
+ $page = $functions->getSinglePageData("Past Articles");
 
- ?>
+ echo $meta= $functions->meta_tag($page["meta_title"],$page["meta_desc"],$page["meta_key"],$base_url.'past_issues.php?issueid='.$id);
+  $data = $functions->issue($id);
+  ?>
+
+
 
 
  <!-- <style>
