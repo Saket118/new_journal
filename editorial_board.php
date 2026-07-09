@@ -52,12 +52,14 @@
 
 <?php include_once "./include/header.php"; ?>
 
-<div class="py-5">
-    <div class="container">
 
-        <!-- Heading -->
-        <div class="mb-5">
-            
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-lg-2">
+                <?php include_once "./include/left_sidebar.php"; ?>
+            </div>
+            <div class="col-lg-7 py-2 border my-2">
+  
         <div class="container">
          <h2 class="border-bottom"><?= $page["meta_title"] ?></h2>   
         

@@ -147,6 +147,7 @@ public function issue($issue_id = null)
     ];
 }
 
+<<<<<<< HEAD
 // public function current_issue()
 // {
 //     $issue = $this->Archives("Current")[0];
@@ -264,6 +265,150 @@ public function issue($issue_id = null)
 //         "articles"   => $articles
 //     ];
 // }
+=======
+
+public function getCountries()
+{
+    $stmt = $this->conn->prepare("
+        SELECT id, country_name
+        FROM country_master
+        ORDER BY country_name ASC
+    ");
+
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+
+public function getStates($country_id)
+{
+    $stmt = $this->conn->prepare("
+        SELECT id, state_name
+        FROM state_master
+        WHERE country_id = ?
+        ORDER BY state_name ASC
+    ");
+
+    $stmt->bind_param("i", $country_id);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    return $result->fetch_all(MYSQLI_ASSOC);
+}
+public function getCities($country_id, $state_id = 0)
+{
+    $column = ($state_id > 0) ? "state_id" : "country_id";
+    $id     = ($state_id > 0) ? $state_id : $country_id;
+
+    $stmt = $this->conn->prepare("
+        SELECT id, city_name
+        FROM city_master
+        WHERE {$column} = ?
+        ORDER BY city_name ASC
+    ");
+
+    $stmt->bind_param("i", $id);
+    $stmt->execute();
+
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
+
+
+public function registerUser($data)
+{
+    $status       = 1;
+    $org_id       = $this->org_id;
+    $created_date = date("Y-m-d H:i:s");
+    $group_id = ($data['userType'] == 'Author') ? 2 : (($data['userType'] == 'Reviewer') ? 4 : '');
+
+
+    $stmt = $this->conn->prepare("
+        INSERT INTO user_login
+        (
+            user_name, pwd, status, Type, Email, Salutation, First_Name, Qualification, Address, City, State, Country, Mobile, org_id, group_id, created_date
+        )
+        VALUES
+        (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    ");
+
+        $stmt->bind_param(
+        "sssssssssiiiiiss",
+        $data['email'],                             
+        $this->encrypt($data['password']),
+        $status,
+        $data['userType'],
+        $data['email'],
+        $data['title'],
+        $data['fullName'],
+        $data['qualification'],
+        $data['address'],
+        $data['city'],      
+        $data['state'],   
+        $data['country'],  
+        $data['contact'],
+        $org_id,
+        $group_id,      
+        $created_date
+    );
+
+    return $stmt->execute();
+}
+
+
+
+
+public function encrypt($string, $key="ubitech")
+  {
+      $result = '';
+      for($i=0; $i<strlen($string); $i++)
+      {
+      $char = substr($string, $i, 1);
+      $keychar = substr($key, ($i % strlen($key))-1, 1);
+      $char = chr(ord($char)+ord($keychar));
+      $result.=$char;
+      }
+      return base64_encode($result);
+  }
+ 
+
+
+public function addSubscriber($email, $category)
+{
+    $sts            = 1; 
+    $org_name       = "Anirudh";      
+    $org_email      = "anirudh@gmail.com";  
+    $org_id         = $this->org_id;         
+    $subscribe_date = date("Y-m-d H:i:s");
+
+    $stmt = $this->conn->prepare("
+        INSERT INTO subscriber 
+        (
+            email, category, sts, org_name, org_email, org_id, subscribe_date
+        ) 
+        VALUES 
+        (?, ?, ?, ?, ?, ?, ?)
+    ");
+
+    $stmt->bind_param(
+        "ssissis", 
+        $email, 
+        $category, 
+        $sts, 
+        $org_name, 
+        $org_email, 
+        $org_id, 
+        $subscribe_date
+    );
+
+    return $stmt->execute();
+}
+
+
+
+>>>>>>> 1281b9ca73ba0b919b6899a0356e605bbed8155f
 }
 
 
