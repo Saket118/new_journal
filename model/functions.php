@@ -61,13 +61,44 @@ public function Archives($status)
     $result = $stmt->get_result();
     return $result->fetch_all(MYSQLI_ASSOC);
 }
-
-public function current_issue()
+public function issue($issue_id = null)
 {
-    $issue = $this->Archives("Current")[0];
-    $issue_id = $issue["issue_id"];
+    // Get issue details
+    if ($issue_id === null) {
+        $issue = $this->Archives("Current")[0] ?? null;
 
- 
+        if (!$issue) {
+            return [
+                "issue"      => null,
+                "categories" => [],
+                "articles"   => []
+            ];
+        }
+
+        $issue_id = $issue["issue_id"];
+    } else {
+        $stmt = $this->conn->prepare("
+            SELECT issue_id, issue_no, date_publish
+            FROM issue_master
+            WHERE issue_id = ?
+            AND org_id = ?
+            LIMIT 1
+        ");
+
+        $stmt->bind_param("ii", $issue_id, $this->org_id);
+        $stmt->execute();
+        $issue = $stmt->get_result()->fetch_assoc();
+
+        if (!$issue) {
+            return [
+                "issue"      => null,
+                "categories" => [],
+                "articles"   => []
+            ];
+        }
+    }
+
+    // Get Categories
     $category = $this->conn->prepare("
         SELECT
             articles.article_type,
@@ -80,13 +111,14 @@ public function current_issue()
         AND articles.org_id = ?
         AND article_type.org_id = ?
         GROUP BY articles.article_type
+        ORDER BY article_type.article_sort ASC
     ");
 
     $category->bind_param("iii", $issue_id, $this->org_id, $this->org_id);
     $category->execute();
     $categories = $category->get_result()->fetch_all(MYSQLI_ASSOC);
 
-
+    // Get Articles
     $article = $this->conn->prepare("
         SELECT
             article_id,
@@ -101,7 +133,7 @@ public function current_issue()
         FROM articles
         WHERE issue_id = ?
         AND org_id = ?
-        ORDER By article_type
+        ORDER BY article_type ASC
     ");
 
     $article->bind_param("ii", $issue_id, $this->org_id);
@@ -109,11 +141,129 @@ public function current_issue()
     $articles = $article->get_result()->fetch_all(MYSQLI_ASSOC);
 
     return [
-        "issue"      => $issue,    
-        "categories" => $categories,   
-        "articles"   => $articles     
+        "issue"      => $issue,
+        "categories" => $categories,
+        "articles"   => $articles
     ];
 }
+
+// public function current_issue()
+// {
+//     $issue = $this->Archives("Current")[0];
+//     $issue_id = $issue["issue_id"];
+
+ 
+//     $category = $this->conn->prepare("
+//         SELECT
+//             articles.article_type,
+//             article_type.category_name,
+//             article_type.category_id
+//         FROM articles
+//         INNER JOIN article_type
+//             ON articles.article_type = article_type.category_id
+//         WHERE articles.issue_id = ?
+//         AND articles.org_id = ?
+//         AND article_type.org_id = ?
+//         GROUP BY articles.article_type
+//         ORDER BY article_type.article_sort
+//     ");
+
+//     $category->bind_param("iii", $issue_id, $this->org_id, $this->org_id);
+//     $category->execute();
+//     $categories = $category->get_result()->fetch_all(MYSQLI_ASSOC);
+
+
+//     $article = $this->conn->prepare("
+//         SELECT
+//             article_id,
+//             authors,
+//             title,
+//             pages,
+//             view,
+//             download,
+//             doi,
+//             doiurl,
+//             article_type
+//         FROM articles
+//         WHERE issue_id = ?
+//         AND org_id = ?
+//         ORDER By article_type
+//     ");
+
+//     $article->bind_param("ii", $issue_id, $this->org_id);
+//     $article->execute();
+//     $articles = $article->get_result()->fetch_all(MYSQLI_ASSOC);
+
+//     return [
+//         "issue"      => $issue,    
+//         "categories" => $categories,   
+//         "articles"   => $articles     
+//     ];
+// }
+
+// public function past_issue($issue_id)
+// {
+//     // Get issue details
+//     $issue = $this->conn->prepare("
+//         SELECT issue_id,issue_no,date_publish
+//         FROM issue_master
+//         WHERE issue_id = ?
+//         AND org_id = ?
+//         LIMIT 1
+//     ");
+
+//     $issue->bind_param("ii", $issue_id, $this->org_id);
+//     $issue->execute();
+//     $issue = $issue->get_result()->fetch_assoc();
+
+    
+//     $category = $this->conn->prepare("
+//         SELECT
+//             articles.article_type,
+//             article_type.category_name,
+//             article_type.category_id
+//         FROM articles
+//         INNER JOIN article_type
+//             ON articles.article_type = article_type.category_id
+//         WHERE articles.issue_id = ?
+//         AND articles.org_id = ?
+//         AND article_type.org_id = ?
+//         GROUP BY articles.article_type
+//         ORDER BY article_type.article_sort ASC
+//     ");
+
+//     $category->bind_param("iii", $issue_id, $this->org_id, $this->org_id);
+//     $category->execute();
+//     $categories = $category->get_result()->fetch_all(MYSQLI_ASSOC);
+
+   
+//     $article = $this->conn->prepare("
+//         SELECT
+//             article_id,
+//             authors,
+//             title,
+//             pages,
+//             view,
+//             download,
+//             doi,
+//             doiurl,
+//             article_type
+//         FROM articles
+//         WHERE issue_id = ?
+//         AND org_id = ?
+//         ORDER BY article_type ASC
+//     ");
+
+//     $article->bind_param("ii", $issue_id, $this->org_id);
+//     $article->execute();
+//     $articles = $article->get_result()->fetch_all(MYSQLI_ASSOC);
+
+//     return [
+//         "issue"      => $issue,
+//         "categories" => $categories,
+//         "articles"   => $articles
+//     ];
+// }
 }
 
 
