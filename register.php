@@ -4,13 +4,19 @@
 <head>
     <?php include_once "./include/link.php"; ?>
     <?php
-    if (isset($_POST['register'])) {
-        if ($functions->registerUser($_POST)) {
-            echo "<script>alert('Registration Successful');</script>";
-        } else {
-            echo "<script>alert('Registration Failed');</script>";
-        }
+if (isset($_POST['register'])) {
+    if ($functions->registerUser($_POST)) {
+        echo "<script>
+                alert('Registration Successful');
+                window.location.href='register.php';
+              </script>";
+        exit;
+    } else {
+        echo "<script>
+                alert('Registration Failed');
+              </script>";
     }
+}
     $countries = $functions->getCountries();
     echo $meta = $functions->meta_tag("Register", "", "", $base_url . "register.php");
     ?>
@@ -34,7 +40,7 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 px-5">
                 <div class="m-lg-5 shadow">
 
-                    <form method="POST" class="p-4" onsubmit="return validateForm();">
+                    <form method="POST" class="p-4" onsubmit="return validateForm();" novalidate>
                         <h3 class="text-center">Registration</h3>
                         <hr>
 

@@ -1,60 +1,95 @@
 <div class="card border-warning-subtle mt-2" style="min-height:200px;">
-    <div class="card-header bg-warning-subtle text-dark fw-semibold p-1 text-center ">
+    <div class="card-header bg-warning-subtle text-dark fw-semibold p-1 text-center">
         News
     </div>
+
     <div class="card-body">
-        <marquee height="136" onmouseout="this.start()" onmouseover="this.stop()" scrollamount="3" direction="up">
-            <a href="#" class="text-decoration-none text-secondary">
-                ffdfsdasdffds
-            </a>
-            <hr>
-        </marquee>
-    </div>
+        <marquee height="136" onmouseover="this.stop()" onmouseout="this.start()" scrollamount="3" direction="up">
 
-</div>
-
-
-<div class="card border-warning-subtle mt-2" style="min-height:200px;">
-    <div class="card-header bg-warning-subtle text-dark fw-semibold p-1 text-center ">
-        Most viewed articles
-    </div>
-    <div class="card-body">
-        <marquee height="136" onmouseout="this.start()" onmouseover="this.stop()" scrollamount="3" direction="up">
-            <a href="#" class="text-decoration-none text-secondary">
-                ffdfsdasdffds
-            </a>
-            <hr>
-            
+            <?php if (!empty($news)) { ?>
+                <?php foreach ($news as $item) { ?>
+                    <a href="#" class="text-decoration-none text-secondary">
+                        <?=$item['news_desc'] ?>
+                    </a>
+                <?php } ?>
+            <?php } else { ?>
+                <p class="text-muted">No News Found.</p>
+            <?php } ?>
         </marquee>
     </div>
 </div>
 
 
 <div class="card border-warning-subtle mt-2" style="min-height:200px;">
-    <div class="card-header bg-warning-subtle text-dark fw-semibold p-1 text-center ">
+
+    <div class="card-header bg-warning-subtle text-dark fw-semibold p-1 text-center">
+        Most Viewed Articles
+    </div>
+
+    <div class="card-body">
+
+        <marquee height="136" onmouseover="this.stop()" onmouseout="this.start()" scrollamount="3" direction="up">
+
+            <?php if (!empty($mostViewed)) { ?>
+                <?php foreach ($mostViewed as $article) { ?>
+                    <a href="<?= $base_url ?>abstract.php?article_id=<?= $article['article_id']; ?>"
+                        class="text-decoration-none small mt-3 text-secondary d-block">
+                        <?= $article['title']; ?>
+                    </a>
+                <?php } ?>
+            <?php } else { ?>
+                <p class="text-muted">No articles found.</p>
+            <?php } ?>
+
+        </marquee>
+
+    </div>
+
+</div>
+
+
+<div class="card border-warning-subtle mt-2" style="min-height:200px;">
+    <div class="card-header bg-warning-subtle text-dark fw-semibold p-1 text-center">
         Advertisment
     </div>
+
     <div class="card-body">
-        <marquee height="136" onmouseout="this.start()" onmouseover="this.stop()" scrollamount="3" direction="up">
-            <a href="#" class="text-decoration-none text-secondary">
-                ffdfsdasdffds
-            </a>
-            <hr>
+        <marquee height="136" onmouseover="this.stop();" onmouseout="this.start();" scrollamount="3" direction="up">
+
+            <?php if (!empty($advertisements)) { ?>
+                <?php foreach ($advertisements as $ad) { ?>
+                    <a href="#" class="text-decoration-none text-secondary small">
+                        <?= $ad['name']; ?>
+                    </a>
+
+                <?php } ?>
+            <?php } else { ?>
+                <p class="text-muted ">No Advertisement Found.</p>
+            <?php } ?>
+
         </marquee>
     </div>
 </div>
 
 
 <div class="card border-warning-subtle mt-2" style="min-height:200px;">
-    <div class="card-header bg-warning-subtle text-dark fw-semibold p-1 text-center ">
+    <div class="card-header bg-warning-subtle text-dark fw-semibold p-1 text-center">
         Conference
     </div>
+
     <div class="card-body">
-        <marquee height="136" onmouseout="this.start()" onmouseover="this.stop()" scrollamount="3" direction="up">
-            <a href="#" class="text-decoration-none text-secondary">
-                ffdfsdasdffds
-            </a>
-            <hr>
+        <marquee height="136" onmouseover="this.stop();" onmouseout="this.start();" scrollamount="3" direction="up">
+
+            <?php if (!empty($conferences)) { ?>
+                <?php foreach ($conferences as $conference) { ?>
+                    <a href="#" class="text-decoration-none text-secondary small">
+                        <?= $conference['title'] ?>
+                    </a>
+                <?php } ?>
+            <?php } else { ?>
+                <p class="text-muted">No Conference Found.</p>
+            <?php } ?>
+
         </marquee>
     </div>
 </div>
