@@ -408,6 +408,215 @@ public function addSubscriber($email, $category)
 
 
 
+// public function getMostViewedArticles($limit = 2)
+// {
+//     $stmt = $this->conn->prepare("
+//         SELECT article_id, title, view
+//         FROM articles
+//         WHERE org_id = ?
+//         ORDER BY view DESC
+//         LIMIT ?
+//     ");
+//     $stmt->bind_param("ii", $this->org_id, $limit);
+//     $stmt->execute();
+//     return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+// }
+
+
+// public function getMostDownloadedArticles($limit = 2)
+// {
+//     $stmt = $this->conn->prepare("
+//         SELECT article_id, title, download
+//         FROM articles
+//         WHERE org_id = ?
+//         ORDER BY download DESC
+//         LIMIT ?
+//     ");
+//     $stmt->bind_param("ii", $this->org_id, $limit);
+//     $stmt->execute();
+//     return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+// }
+public function getMostViewedArticles()
+{
+    $stmt = $this->conn->prepare("
+        SELECT
+            article_id,
+            article_type,
+            title,
+            authors,
+            pages,
+            publish_date,
+            doi,
+            doiurl,
+            view,
+            download,
+            file_url
+        FROM articles
+        WHERE org_id = ?
+        ORDER BY view DESC
+        LIMIT 5
+    ");
+
+    $stmt->bind_param("i", $this->org_id);
+    $stmt->execute();
+
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
+public function getMostDownloadedArticles()
+{
+    $stmt = $this->conn->prepare("
+        SELECT
+            article_id,
+            article_type,
+            title,
+            authors,
+            pages,
+            publish_date,
+            doi,
+            doiurl,
+            view,
+            download,
+            file_url
+        FROM articles
+        WHERE org_id = ?
+        ORDER BY download DESC
+        LIMIT 5
+    ");
+
+    $stmt->bind_param("i", $this->org_id);
+    $stmt->execute();
+
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+//advertisement
+public function getAdvertisementName()
+{
+    $stmt = $this->conn->prepare("
+        SELECT name
+        FROM advertisement
+        WHERE org_id = ?
+        AND status = 1
+        ORDER BY ad_id DESC
+    ");
+
+    $stmt->bind_param("i", $this->org_id);
+    $stmt->execute();
+   return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+//CONFERENCE
+public function getConferenceTitles()
+{
+    $stmt = $this->conn->prepare("
+        SELECT title
+        FROM conference
+        WHERE org_id = ?
+        AND sts = 1
+        ORDER BY id DESC
+    ");
+
+    $stmt->bind_param("i", $this->org_id);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
+//news
+public function getNews()
+{
+    $stmt = $this->conn->prepare("
+        SELECT news_desc
+        FROM news_master
+        WHERE org_id = ?
+        AND news_sts = 1
+        ORDER BY news_sort ASC
+    ");
+
+    $stmt->bind_param("i", $this->org_id);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
+
+// manuscript
+public function getManuscriptChartData()
+{
+    $stmt = $this->conn->prepare("
+        SELECT current_phase, COUNT(*) AS total
+        FROM manuscript_submit
+        WHERE org_id = ?
+        GROUP BY current_phase
+        ORDER BY current_phase ASC
+    ");
+
+    $stmt->bind_param("i", $this->org_id);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+}
+
+
+
+public function getArticleById($article_id)
+{
+    $stmt = $this->conn->prepare("
+        SELECT
+            article_id,
+            article_type,
+            referances,
+            title,
+            authors,
+            pages,
+            publish_date,
+            doi,
+            file_url,
+            keywords,
+            long_desc,
+            view,
+            download
+        FROM articles
+        WHERE article_id = ?
+        AND org_id = ?
+        LIMIT 1
+    ");
+
+    $stmt->bind_param("ii", $article_id, $this->org_id);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc();
+}
+
+
+
+
+
+public function getfulltext($article_id)
+{
+    $stmt = $this->conn->prepare("
+        SELECT
+            article_id,
+            article_type,
+            referances,
+            title,
+            authors,
+            pages,
+            publish_date,
+            doi,
+            file_url,
+            keywords,
+            long_desc,
+            full_text,
+            view,
+            download
+        FROM articles
+        WHERE article_id = ?
+        AND org_id = ?
+        LIMIT 1
+    ");
+
+    $stmt->bind_param("ii", $article_id, $this->org_id);
+    $stmt->execute();
+    return $stmt->get_result()->fetch_assoc();
+}
+
+
 >>>>>>> 1281b9ca73ba0b919b6899a0356e605bbed8155f
 }
 

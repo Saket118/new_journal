@@ -1,88 +1,88 @@
 function validateForm() {
 
-    const fields = [
-        {
-            id: "title",
-            required: "Please Select Title"
-        },
-        {
-            id: "fullName",
-            required: "Please Enter Full Name"
-        },
-        {
-            id: "email",
-            required: "Please Enter Email",
-            pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-            invalid: "Please Enter Valid Email"
-        },
-        {
-            id: "password",
-            required: "Please Enter Password",
-            pattern: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/,
-            invalid: "Password must be strong & Min 6 chars long"
-        },
-        {
-            id: "userType",
-            required: "Please Select User Type"
-        },
-        {
-            id: "country",
-            required: "Please Select Country"
-        },
-        {
-            id: "contact",
-            required: "Please Enter Contact Number",
-            pattern: /^[0-9]{10}$/,
-            invalid: "Please Enter Valid 10 Digit Mobile Number"
-        },
-        {
-            id: "address",
-            required: "Please Enter Address"
-        }
-    ];
-
     clearErrors();
 
-    for (const field of fields) {
+    var title = document.getElementById("title");
+    var fullName = document.getElementById("fullName");
+    var email = document.getElementById("email");
+    var password = document.getElementById("password");
+    var userType = document.getElementById("userType");
+    var country = document.getElementById("country");
+    var contact = document.getElementById("contact");
+    var address = document.getElementById("address");
 
-        const input = document.getElementById(field.id);
-        if (!input) continue;
-
-        const value = input.value.trim();
-
-        if (!value) {
-            showError(input, field.required);
-            return false;
-        }
-
-        if (field.pattern && !field.pattern.test(value)) {
-            showError(input, field.invalid);
-            return false;
-        }
+    if (title.value.trim() === "") {
+        showError(title, "Please Select Title");
+        return false;
     }
-    // alert("Form Submitted Successfully!");
+    if (fullName.value.trim() === "") {
+        showError(fullName, "Please Enter Full Name");
+        return false;
+    }
+    if (email.value.trim() === "") {
+        showError(email, "Please Enter Email");
+        return false;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim())) {
+        showError(email, "Please Enter Valid Email");
+        return false;
+    }
+    if (password.value.trim() === "") {
+        showError(password, "Please Enter Password");
+        return false;
+    }
+    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/.test(password.value.trim())) {
+        showError(password, "Password must be strong & minimum 6 characters long");
+        return false;
+    }
+    if (userType.value.trim() === "") {
+        showError(userType, "Please Select User Type");
+        return false;
+    }
+    if (country.value.trim() === "") {
+        showError(country, "Please Select Country");
+        return false;
+    }
+    if (contact.value.trim() === "") {
+        showError(contact, "Please Enter Contact Number");
+        return false;
+    }
+if (contact.value.trim().length < 10 || contact.value.trim().length > 12) {
+    showError(contact, "Mobile Number should be 10 to 12 digits only");
+    return false;
+}
+    if (address.value.trim() === "") {
+        showError(address, "Please Enter Address");
+        return false;
+    }
     return true;
 }
 
-function showError(input, message) {
-    input.focus();
-    input.classList.add("is-invalid");
-
-    const error = document.getElementById(input.id + "Error");
+function showError(element, message) {
+    element.classList.add("is-invalid");
+    element.focus();
+    var error = document.getElementById(element.id + "Error");
     if (error) {
-        error.textContent = message;
+        error.innerHTML = message;
     }
 }
 
 function clearErrors() {
-    document.querySelectorAll("[id$='Error']").forEach(error => {
-        error.textContent = "";
+    document.querySelectorAll(".is-invalid").forEach(function (element) {
+        element.classList.remove("is-invalid");
     });
-
-    document.querySelectorAll(".is-invalid").forEach(input => {
-        input.classList.remove("is-invalid");
+    document.querySelectorAll(".invalid-feedback").forEach(function (element) {
+        element.innerHTML = "";
     });
 }
+
+
+document.getElementById("fullName").addEventListener("input", function () {
+    this.value = this.value.replace(/[^A-Za-z ]/g, "");
+});
+document.getElementById("contact").addEventListener("input", function () {
+    this.value = this.value.replace(/\D/g, "").slice(0, 12);
+});
 
 
 
