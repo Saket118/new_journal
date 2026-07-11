@@ -41,12 +41,12 @@ $article = $functions->getfulltext($article_id);
         </a>
     </div>
 
-    <div class="mb-4">
+    <!-- <div class="mb-4">
         <a href="<?= $article['file_url']; ?>" class="btn btn-warning" target="_blank">
             Download PDF
         </a>
-    </div>
-
+    </div> -->
+<?= $functions->articleButtons($article['article_id'], $article['file_url'], $base_url, 'fulltext'); ?>
 
     <h4>Full Text</h4>
 

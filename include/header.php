@@ -58,7 +58,7 @@
 
                 </div>
 
-                <div class="col-md-4 col-lg-5 d-none d-md-block">
+                <!-- <div class="col-md-4 col-lg-5 d-none d-md-block">
                     <div class="d-flex justify-content-end">
                         <div class="header-search">
                             <input type="text" class="form-control" placeholder="Search articles...">
@@ -67,8 +67,20 @@
                             </button>
                         </div>
                     </div>
-                </div>
-
+                </div> -->
+<form action="<?= $base_url ?>search.php" method="GET">
+    <div class="header-search">
+        <input
+            type="text"
+            name="q"
+            class="form-control"
+            placeholder="Search articles..."
+            required>
+        <button type="submit">
+            <i class="bi bi-search"></i>
+        </button>
+    </div>
+</form>
             </div>
         </div>
     </div>

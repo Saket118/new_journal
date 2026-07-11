@@ -7,13 +7,13 @@
     $page = $functions->getSinglePageData("Home");
     echo $meta = $functions->meta_tag($page["meta_title"], $page["meta_desc"], $page["meta_key"], $base_url);
 
-    $mostViewed = $functions->getMostViewedArticles();
-    $mostDownloaded = $functions->getMostDownloadedArticles();
+    $mostViewed = $functions->getTopArticles('view');
+    $mostDownloaded = $functions->getTopArticles('download');
     $news = $functions->getNews();
     $advertisements = $functions->getAdvertisementName();
     $conferences = $functions->getConferenceTitles();
     $chartData = $functions->getManuscriptChartData();
-    $issue = $functions->current_issue();
+    $issue = $functions->issue();
 
     ?>
 
@@ -23,7 +23,7 @@
     <?php include_once "./include/header.php"; ?>
 
 
-    <div class="container-fluid mb-5">
+    <div class="container-fluid">
         <div class="row justify-content-center">
             <div class="col-lg-2">
                 <?php include_once "./include/left_sidebar.php"; ?>
@@ -62,7 +62,7 @@
                             <button class="nav-link small font-weight-bold py-1 w-100 text-truncate"
                                 id="tab-comment-tab" data-bs-toggle="pill" data-bs-target="#tab-comment" type="button"
                                 role="tab" aria-controls="tab-comment" aria-selected="false" tabindex="-1">
-                                most downloaded articles
+                                Most downloaded articles
                             </button>
                         </li>
 
@@ -72,262 +72,279 @@
 
                         <div class="tab-pane fade active show" id="tab-abstract" role="tabpanel"
                             aria-labelledby="tab-abstract-tab">
-                            <div class="card border-0 shadow-sm">
-                                <div class="card-body p-3">
 
-                                    <span class="badge article-badge mb-2">
-                                        Original Research
-                                    </span>
 
-                                    <h5 class="fw-bold mb-3">
-                                        <a href="#" class="text-decoration-none text-black">
-                                            Radiographic Assessment of Common Thoracic Disorders Using Chest X-Ray
-                                            Imaging
-                                        </a>
-                                    </h5>
+                            <div class="card-body p-3">
+                                <?php foreach ($issue['articles'] as $article): ?>
 
-                                    <p class="text-secondary mb-1">
-                                        <strong>Author details:</strong>
-                                        Zaira Hassan, Alishba Khusro, Ahmad Huzaifa,
-                                        Mohd Sofian Dar, Saiyed Adeel Abbas, Ms Taiba
-                                    </p>
+                                    <div class="card border-0 shadow-sm mb-4">
+                                        <div class="card-body p-3">
 
-                                    <p class="text-muted fst-italic mb-1">
-                                        Innovative Journal of Medical Imaging, 3(2), 1–7, 2026
-                                    </p>
+                                            <span class="badge article-badge mb-2">
+                                                <?= $article['category_name'] ?>
+                                            </span>
 
-                                    <hr>
+                                            <h5 class="fw-bold mb-3">
+                                                <a href="<?= $base_url ?>fulltext.php?article_id=<?= $article['article_id']; ?>"
+                                                    class="text-decoration-none text-black">
 
-                                    <div class="d-flex flex-wrap gap-4 small text-muted mb-3">
-                                        <span>
-                                            <i class="bi bi-link-45deg me-1"></i>
-                                            DOI:
-                                            <a href="#" class="text-decoration-none text-green">
-                                                10.62502/ijmi/v3i2art1
-                                            </a>
-                                        </span>
+                                                    <?= $article['title']; ?>
 
-                                        <span>
-                                            <i class="bi bi-eye"></i>
-                                            128 Views
-                                        </span>
+                                                </a>
+                                            </h5>
 
-                                        <span>
-                                            <i class="bi bi-download"></i>
-                                            40 Downloads
-                                        </span>
+                                            <p class="text-secondary mb-1">
+                                                <strong>Author details:</strong>
+                                                <?= $article['authors'] ?>
+                                            </p>
+
+                                            <p class="text-muted fst-italic mb-1">
+                                                <?= $issue['issue']['issue_no'] ?>,
+                                                Pages <?= $article['pages'] ?>
+                                            </p>
+
+                                            <hr>
+
+                                            <div class="d-flex flex-wrap gap-4 small text-muted mb-3">
+
+                                                <?php if (!empty($article['doi'])): ?>
+                                                    <span>
+                                                        <i class="bi bi-link-45deg me-1"></i>
+                                                        DOI:
+                                                        <a href="<?= $article['doiurl'] ?>" target="_blank"
+                                                            class="text-decoration-none text-success">
+                                                            <?= $article['doi'] ?>
+                                                        </a>
+                                                    </span>
+                                                <?php endif; ?>
+
+                                                <span>
+                                                    <i class="bi bi-eye"></i>
+                                                    <?= (int) $article['view'] ?> Views
+                                                </span>
+
+                                                <span>
+                                                    <i class="bi bi-download"></i>
+                                                    <?= (int) $article['download'] ?> Downloads
+                                                </span>
+
+                                            </div>
+
+                                            <?= $functions->articleButtons(
+                                                $article['article_id'],
+                                                $article['file_url'],
+                                                $base_url
+                                            ); ?>
+
+                                        </div>
                                     </div>
 
-                                    <div class="d-flex gap-2">
-                                        <a href="#" class="btn btn-theme btn-sm">
-                                            Read Article
-                                        </a>
-
-                                        <a href="#" class="btn btn-outline-secondary btn-sm">
-                                            PDF
-                                        </a>
-                                    </div>
-
-                                </div>
+                                <?php endforeach; ?>
                             </div>
                         </div>
+
 
                         <div class="tab-pane fade" id="tab-metrics" role="tabpanel" aria-labelledby="tab-metrics-tab">
-                            <div class="card border-0 shadow-sm">
-                                <div class="card-body p-3">
+                            <div class="card-body p-3">
 
-                                    <?php $mostViewed = $functions->getMostViewedArticles(); ?>
 
-                                    <?php if (!empty($mostViewed)) { ?>
+                                <?php if (!empty($mostViewed)) { ?>
 
-                                        <?php foreach ($mostViewed as $article) { ?>
+                                    <?php foreach ($mostViewed as $article) { ?>
 
-                                            <div class="card border-0 shadow-sm mb-3">
-                                                <div class="card-body">
+                                        <div class="card border-0 shadow-sm mb-4">
+                                            <div class="card-body p-3">
 
-                                                    <span class="badge bg-success mb-2">
-                                                        <?= $article['article_type']; ?>
-                                                    </span>
+                                                <!-- <span class="badge article-badge mb-2">
+                                            <?= $article['category_name'] ?>
+                                        </span> -->
 
-                                                    <h5 class="fw-bold">
-                                                        <a href="<?= $base_url ?>abstract.php?article_id=<?= $article['article_id']; ?>"
-                                                            class="text-decoration-none text-dark">
+                                                <h5 class="fw-bold mb-3">
+                                                    <a href="<?= $base_url ?>fulltext.php?article_id=<?= $article['article_id']; ?>"
+                                                        class="text-decoration-none text-black">
 
-                                                            <?= $article['title']; ?>
+                                                        <?= $article['title']; ?>
 
-                                                        </a>
-                                                    </h5>
+                                                    </a>
+                                                </h5>
 
-                                                    <p class="mb-1">
-                                                        <strong>Author Details :</strong>
-                                                        <?= $article['authors']; ?>
-                                                    </p>
+                                                <p class="text-secondary mb-1">
+                                                    <strong>Author details:</strong>
+                                                    <?= $article['authors']; ?>
+                                                </p>
 
-                                                    <p class="text-muted fst-italic mb-2">
-                                                        Pages <?= $article['pages']; ?>
-                                                        |
-                                                        <?= date("Y", strtotime($article['publish_date'])); ?>
-                                                    </p>
+                                                <p class="text-muted fst-italic mb-1">
+                                                    Pages <?= $article['pages']; ?>,
+                                                    <?= date("Y", strtotime($article['publish_date'])); ?>
+                                                </p>
 
-                                                    <hr>
+                                                <hr>
 
-                                                    <div class="d-flex flex-wrap gap-4 small mb-3">
+                                                <div class="d-flex flex-wrap gap-4 small text-muted mb-3">
 
+                                                    <?php if (!empty($article['doi'])): ?>
                                                         <span>
-                                                            DOI :
+                                                            <i class="bi bi-link-45deg me-1"></i>
+                                                            DOI:
                                                             <a href="<?= $article['doiurl']; ?>" target="_blank"
-                                                                class="text-decoration-none">
+                                                                class="text-decoration-none text-green">
+
                                                                 <?= $article['doi']; ?>
+
                                                             </a>
                                                         </span>
+                                                    <?php endif; ?>
 
-                                                        <span>
-                                                            👁 <?= $article['view']; ?> Views
-                                                        </span>
+                                                    <span>
+                                                        <i class="bi bi-eye"></i>
+                                                        <?= (int) $article['view']; ?> Views
+                                                    </span>
 
-                                                        <span>
-                                                            ⬇ <?= $article['download']; ?> Downloads
-                                                        </span>
-
-                                                    </div>
-
-                                                    <div class="d-flex gap-2">
-
-                                                        <a href="<?= $base_url ?>abstract.php?article_id=<?= $article['article_id']; ?>"
-                                                            class="btn btn-success btn-sm">
-
-                                                            Read Article
-
-                                                        </a>
-
-                                                        <a href="<?= $article['file_url']; ?>" target="_blank"
-                                                            class="btn btn-outline-secondary btn-sm">
-
-                                                            PDF
-
-                                                        </a>
-
-                                                    </div>
+                                                    <span>
+                                                        <i class="bi bi-download"></i>
+                                                        <?= (int) $article['download']; ?> Downloads
+                                                    </span>
 
                                                 </div>
-                                            </div>
 
-                                        <?php } ?>
+                                                <!-- <div class="d-flex gap-2">
+
+                                                    <a href="<?= $base_url ?>fulltext.php?article_id=<?= $article['article_id']; ?>"
+                                                        class="btn btn-theme btn-sm">
+
+                                                        Read Article
+
+                                                    </a>
+
+                                                    <a href="<?= $article['file_url']; ?>" target="_blank"
+                                                        class="btn btn-outline-secondary btn-sm">
+
+                                                        PDF
+
+                                                    </a>
+
+                                                </div> -->
+                                                <?= $functions->articleButtons(
+                                                    $article['article_id'],
+                                                    $article['file_url'],
+                                                    $base_url
+                                                ); ?>
+
+                                            </div>
+                                        </div>
 
                                     <?php } ?>
 
-                                </div>
+                                <?php } ?>
+
                             </div>
                         </div>
 
-
                         <div class="tab-pane fade" id="tab-comment" role="tabpanel" aria-labelledby="tab-comment-tab">
-                            <div class="card border-0 shadow-sm">
-                                <div class="card-body p-3">
+                            <div class="card-body p-3">
 
-                                    <?php $mostDownloaded = $functions->getMostDownloadedArticles(); ?>
+                                <?php if (!empty($mostDownloaded)) { ?>
 
-                                    <?php if (!empty($mostDownloaded)) { ?>
+                                    <?php foreach ($mostDownloaded as $article) { ?>
 
-                                        <?php foreach ($mostDownloaded as $article) { ?>
+                                        <div class="card border-0 shadow-sm mb-4">
+                                            <div class="card-body p-3">
 
-                                            <div class="card border-0 shadow-sm mb-3">
-                                                <div class="card-body">
-
-                                                    <span class="badge bg-success mb-2">
+                                                <!-- <span class="badge article-badge mb-2">
                                                         <?= $article['article_type']; ?>
-                                                    </span>
+                                                    </span> -->
 
-                                                    <h5 class="fw-bold">
-                                                        <a href="<?= $base_url ?>abstract.php?article_id=<?= $article['article_id']; ?>"
-                                                            class="text-decoration-none text-dark">
+                                                <h5 class="fw-bold mb-3">
+                                                    <a href="<?= $base_url ?>fulltext.php?article_id=<?= $article['article_id']; ?>"
+                                                        class="text-decoration-none text-black">
 
-                                                            <?= $article['title']; ?>
+                                                        <?= $article['title']; ?>
 
-                                                        </a>
-                                                    </h5>
+                                                    </a>
+                                                </h5>
 
-                                                    <p class="mb-1">
-                                                        <strong>Author Details :</strong>
-                                                        <?= $article['authors']; ?>
-                                                    </p>
+                                                <p class="text-secondary mb-1">
+                                                    <strong>Author details:</strong>
+                                                    <?= $article['authors']; ?>
+                                                </p>
 
-                                                    <p class="text-muted fst-italic mb-2">
-                                                        Pages <?= $article['pages']; ?>
-                                                        |
-                                                        <?= date("Y", strtotime($article['publish_date'])); ?>
-                                                    </p>
+                                                <p class="text-muted fst-italic mb-1">
+                                                    Pages <?= $article['pages']; ?>,
+                                                    <?= date("Y", strtotime($article['publish_date'])); ?>
+                                                </p>
 
-                                                    <hr>
+                                                <hr>
 
-                                                    <div class="d-flex flex-wrap gap-4 small mb-3">
+                                                <div class="d-flex flex-wrap gap-4 small text-muted mb-3">
 
+                                                    <?php if (!empty($article['doi'])): ?>
                                                         <span>
-                                                            DOI :
+                                                            <i class="bi bi-link-45deg me-1"></i>
+                                                            DOI:
                                                             <a href="<?= $article['doiurl']; ?>" target="_blank"
-                                                                class="text-decoration-none">
+                                                                class="text-decoration-none text-green">
+
                                                                 <?= $article['doi']; ?>
+
                                                             </a>
                                                         </span>
+                                                    <?php endif; ?>
 
-                                                        <span>
-                                                            👁 <?= $article['view']; ?> Views
-                                                        </span>
+                                                    <span>
+                                                        <i class="bi bi-eye me-1"></i>
+                                                        <?= (int) $article['view']; ?> Views
+                                                    </span>
 
-                                                        <span>
-                                                            ⬇ <?= $article['download']; ?> Downloads
-                                                        </span>
-
-                                                    </div>
-
-                                                    <div class="d-flex gap-2">
-
-                                                        <a href="<?= $base_url ?>abstract.php?article_id=<?= $article['article_id']; ?>"
-                                                            class="btn btn-success btn-sm">
-
-                                                            Read Article
-
-                                                        </a>
-
-                                                        <a href="<?= $article['file_url']; ?>" target="_blank"
-                                                            class="btn btn-outline-secondary btn-sm">
-
-                                                            PDF
-
-                                                        </a>
-
-                                                    </div>
+                                                    <span>
+                                                        <i class="bi bi-download me-1"></i>
+                                                        <?= (int) $article['download']; ?> Downloads
+                                                    </span>
 
                                                 </div>
-                                            </div>
 
-                                        <?php } ?>
+                                                <!-- <div class="d-flex gap-2">
+
+                                                    <a href="<?= $base_url ?>fulltext.php?article_id=<?= $article['article_id']; ?>"
+                                                        class="btn btn-theme btn-sm">
+
+                                                        Read Article
+
+                                                    </a>
+
+                                                    <a href="<?= $article['file_url']; ?>" target="_blank"
+                                                        class="btn btn-outline-secondary btn-sm">
+
+                                                        PDF
+
+                                                    </a>
+
+                                                </div> -->
+                                                <?= $functions->articleButtons(
+                                                    $article['article_id'],
+                                                    $article['file_url'],
+                                                    $base_url
+                                                ); ?>
+                                            </div>
+                                        </div>
 
                                     <?php } ?>
-                                </div>
-                            </div>
 
+                                <?php } ?>
+                            </div>
                         </div>
 
                     </div>
-                    
-                </div>
 
+
+                </div>
             </div>
+
             <div class="col-lg-2">
                 <?php include_once "./include/right_sidebar.php"; ?>
             </div>
+
         </div>
-
-
-
-        <!-- ///////tabl///// -->
-
-        <!-- ///////// -->
-
         <?php include_once "./include/footer.php"; ?>
-
-
 </body>
 
 </html>

@@ -1,85 +1,98 @@
 <?php include_once "./include/link.php"; ?>
 <?php
 $article_id = $_GET['article_id'] ?? 0;
-$article = $functions->getArticleById($article_id);
+$article = $functions->getabstract($article_id);
 
 ?>
 <?php include_once "./include/header.php"; ?>
 
 <!-- ///ABSTRACT////// -->
-<div class="container mt-4">
+<div class="card border-0 shadow-sm">
 
-    <h2 class="border-bottom pb-2 mb-4">Abstract</h2>
+    <div class="card-body p-3">
 
-    <h3><?= $article['title'] ?></h3>
+     <h2 class="border-bottom pb-2 mb-4">Abstract</h2>
 
-    <div class="text-muted mb-3">
-        <!-- <strong>Author :</strong> -->
-        <?= $article['authors'] ?>
-    </div>
+        <h3 class="fw-bold mb-3">
+            <?= $article['title'] ?>
+        </h3>
 
-    <div class="mb-2">
-        <strong>Category :</strong>
-        <?= $article['article_type'] ?>
-    </div>
+        <p class="text-secondary mb-1">
+            <strong>Author Details:</strong>
+            <?= $article['authors'] ?>
+        </p>
 
+        <p class="text-muted fst-italic mb-1">
+            Published:
+            <?= date("d M Y", strtotime($article['publish_date'])) ?>
+            &nbsp; | &nbsp;
+            Pages <?= $article['pages'] ?>
+        </p>
 
-    <div class="mb-2">
-        <strong>Pages :</strong>
-        <?= $article['pages'] ?>
-    </div>
+        <hr>
 
-    <div class="mb-2">
-        <strong>Published :</strong>
-        <?= date("d-M-Y", strtotime($article['publish_date'])) ?>
-    </div>
+        <div class="d-flex flex-wrap gap-4 small text-muted mb-3">
 
-    <div class="mb-3">
-        <strong>DOI :</strong>
-        <a href="<?= $article['doi'] ?>" target="_blank">
-            <?= $article['doi'] ?>
-        </a>
-    </div>
+            <span>
+                <strong>Category:</strong>
+                <?= $article['article_type'] ?>
+            </span>
 
-    <div class="mb-4">
-        <a href="<?= $article['file_url']; ?>" class="btn btn-warning" target="_blank">
-            Download PDF
-        </a>
-    </div>
+            <?php if (!empty($article['doi'])): ?>
+                <span>
+                    <i class="bi bi-link-45deg me-1"></i>
+                    DOI:
+                    <a href="<?= $article['doi'] ?>"
+                        target="_blank"
+                        class="text-decoration-none text-success">
 
-    <div class="mb-4">
-        <a href="<?= $base_url ?>fulltext.php?article_id=<?= $article['article_id']; ?>">
-            Full Text
-        </a>
-    </div>
+                        <?= $article['doi'] ?>
 
-    <h4>Abstract</h4>
+                    </a>
+                </span>
+            <?php endif; ?>
 
-    <div class="text-justify">
-        <?= $article['long_desc']; ?>
-    </div>
+            <span>
+                <i class="bi bi-eye"></i>
+                <?= (int)$article['view'] ?> Views
+            </span>
 
-    <hr>
+            <span>
+                <i class="bi bi-download"></i>
+                <?= (int)$article['download'] ?> Downloads
+            </span>
 
-    <div class="mb-2">
-        <strong>References :</strong>
-        <?= $article['referances'] ?>
-    </div>
+        </div>
 
+        <?= $functions->articleButtons(
+            $article['article_id'],
+            $article['file_url'],
+            $base_url,
+            'abstract'
+        ); ?>
 
-    <div class="mb-2">
-        <strong>Keywords :</strong>
-        <?= $article['keywords'] ?>
-    </div>
+        <hr>
 
-    <div class="mb-2">
-        <strong>Views :</strong>
-        <?= $article['view'] ?>
+        <h5 class="fw-bold mb-3">
+            Abstract
+        </h5>
 
-        &nbsp;&nbsp;
+        <div class="mb-4">
+            <?= $article['long_desc'] ?>
+        </div>
 
-        <strong>Downloads :</strong>
-        <?= $article['download'] ?>
+        <hr>
+
+        <div class="mb-3">
+            <strong>References:</strong><br>
+            <?= $article['referances'] ?>
+        </div>
+
+        <div class="mb-3">
+            <strong>Keywords:</strong><br>
+            <?= $article['keywords'] ?>
+        </div>
+
     </div>
 
 </div>

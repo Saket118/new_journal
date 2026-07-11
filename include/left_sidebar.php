@@ -1,3 +1,9 @@
+
+    <?php
+    $chartData = $functions->getManuscriptChartData();
+
+    ?>
+
 <!-- Sign In / Sign Up -->
 <div class="card mb-3 border-warning-subtle text-center mt-2">
     <div class="card-header bg-warning-subtle text-dark p-1 fw-semibold">
@@ -15,7 +21,60 @@
 
 
 <!-- Search Articles -->
-<div class="card mb-3 border-warning-subtle mt-2">
+ <div class="card mb-3 border-warning-subtle mt-2">
+
+    <div class="card-header bg-warning-subtle text-dark fw-semibold p-1">
+        Search Articles
+    </div>
+
+    <div class="card-body">
+
+        <form action="<?= $base_url ?>search.php" method="GET">
+
+            <div class="mb-3">
+
+                <input
+                    type="text"
+                    name="q"
+                    class="form-control form-control-sm"
+                    placeholder="Enter search text"
+                    required>
+
+            </div>
+
+            <div class="mb-3">
+
+                <select
+                    name="type"
+                    class="form-select form-select-sm">
+
+                    <option value="all">All</option>
+                    <option value="title">Title</option>
+                    <option value="author">Author</option>
+                    <option value="keywords">Keywords</option>
+
+                </select>
+
+            </div>
+
+            <div class="text-center">
+
+                <button
+                    type="submit"
+                    class="btn btn-theme btn-sm px-4 text-white">
+
+                    Search
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+<!-- <div class="card mb-3 border-warning-subtle mt-2">
 
     <div class="card-header bg-warning-subtle text-dark fw-semibold p-1">
         Search Articles
@@ -47,7 +106,7 @@
 
     </div>
 
-</div>
+</div> -->
 
 <!-- Most Downloaded Articles -->
 <div class="card border-warning-subtle" style="min-height:220px;">

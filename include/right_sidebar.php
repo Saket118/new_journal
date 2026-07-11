@@ -9,7 +9,7 @@
             <?php if (!empty($news)) { ?>
                 <?php foreach ($news as $item) { ?>
                     <a href="#" class="text-decoration-none text-secondary">
-                        <?=$item['news_desc'] ?>
+                        <?= $item['news_desc'] ?>
                     </a>
                 <?php } ?>
             <?php } else { ?>
@@ -72,9 +72,10 @@
 </div>
 
 
+
 <div class="card border-warning-subtle mt-2" style="min-height:200px;">
     <div class="card-header bg-warning-subtle text-dark fw-semibold p-1 text-center">
-        Conference
+        <a class="text-decoration-none text-dark" href="<?= $base_url ?>conference.php"> Conference </a>
     </div>
 
     <div class="card-body">
