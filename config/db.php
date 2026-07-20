@@ -4,7 +4,7 @@ class Database
 {   private $host = "localhost";
    private $user = "root";
    private $password = "";
-private $database = "yemen_demo";
+private $database = "ubipayro_journal_webbuilder_demo";
 
     public $conn;
 

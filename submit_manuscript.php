@@ -24,7 +24,8 @@ echo $meta= $functions->meta_tag($page["meta_title"],$page["meta_desc"],$page["m
         <h2 class="border-bottom"><?= $page["meta_title"] ?></h2>   
         
            <div>
-            <?= $page["page_content"] ?>
+            <?= html_entity_decode($page['page_content']);
+?>
            </div>
 
             </div>

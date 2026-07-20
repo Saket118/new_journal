@@ -1,3 +1,14 @@
+
+<?php
+
+    $news = $functions->getNews();
+    $advertisements = $functions->getAdvertisementName();
+    $conferences = $functions->getConferenceEvents();
+    $index_in = $functions->getindex_Data();
+    //  $curr_issue_img=  $functions->curr_issue_img();  
+
+?>
+
 <div class="card border-warning-subtle mt-2" style="min-height:200px;">
     <div class="card-header bg-warning-subtle text-dark fw-semibold p-1 text-center">
         News
@@ -13,7 +24,7 @@
                     </a>
                 <?php } ?>
             <?php } else { ?>
-                <p class="text-muted">No News Found.</p>
+                <p class="text-muted">coming soon</p>
             <?php } ?>
         </marquee>
     </div>
@@ -32,13 +43,20 @@
 
             <?php if (!empty($mostViewed)) { ?>
                 <?php foreach ($mostViewed as $article) { ?>
-                    <a href="<?= $base_url ?>abstract.php?article_id=<?= $article['article_id']; ?>"
+                  <?php        $title = strip_tags(html_entity_decode($article['title'], ENT_QUOTES, 'UTF-8'));
+
+$title = str_replace(
+    ['%0D%0A', '%2C','%3A'],
+    ['', ',',':'],
+    urlencode($title)); ?>
+
+                    <a href="<?= $base_url ?>fulltext.php?article_id=<?= $article['article_id'] ?>&title=<?= $title ?>"
                         class="text-decoration-none small mt-3 text-secondary d-block">
                         <?= $article['title']; ?>
                     </a>
                 <?php } ?>
             <?php } else { ?>
-                <p class="text-muted">No articles found.</p>
+                <p class="text-muted">coming soon</p>
             <?php } ?>
 
         </marquee>
@@ -58,13 +76,13 @@
 
             <?php if (!empty($advertisements)) { ?>
                 <?php foreach ($advertisements as $ad) { ?>
-                    <a href="#" class="text-decoration-none text-secondary small">
+                    <div class="text-decoration-none text-secondary small">
                         <?= $ad['name']; ?>
-                    </a>
+                    </div>
 
                 <?php } ?>
             <?php } else { ?>
-                <p class="text-muted ">No Advertisement Found.</p>
+                <p class="text-muted ">coming soon</p>
             <?php } ?>
 
         </marquee>
@@ -75,21 +93,33 @@
 
 <div class="card border-warning-subtle mt-2" style="min-height:200px;">
     <div class="card-header bg-warning-subtle text-dark fw-semibold p-1 text-center">
-        <a class="text-decoration-none text-dark" href="<?= $base_url ?>conference.php"> Conference </a>
+        <a class="text-decoration-none text-dark" href="<?= $base_url ?>conference.php">
+            Conference
+        </a>
     </div>
 
     <div class="card-body">
-        <marquee height="136" onmouseover="this.stop();" onmouseout="this.start();" scrollamount="3" direction="up">
+        <marquee height="136"
+                 direction="up"
+                 scrollamount="3"
+                 onmouseover="this.stop();"
+                 onmouseout="this.start();">
 
-            <?php if (!empty($conferences)) { ?>
-                <?php foreach ($conferences as $conference) { ?>
-                    <a href="#" class="text-decoration-none text-secondary small">
-                        <?= $conference['title'] ?>
-                    </a>
-                <?php } ?>
-            <?php } else { ?>
-                <p class="text-muted">No Conference Found.</p>
-            <?php } ?>
+            <?php if (!empty($conferences['all'])): ?>
+
+                <?php foreach ($conferences['all'] as $conference): ?>
+                    <div class="mb-2">
+                        <div
+                           class="text-decoration-none text-secondary small"
+                           target="_blank">
+                            <?= strip_tags($conference['title']) ?>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+
+            <?php else: ?>
+                <p class="text-muted">Coming soon</p>
+            <?php endif; ?>
 
         </marquee>
     </div>
@@ -114,5 +144,34 @@
                 </button>
             </div>
         </form>
+    </div>
+</div>
+
+<div class="card border-warning-subtle mt-2" style="min-height:200px;">
+    <div class="card-header bg-warning-subtle text-dark fw-semibold p-1 text-center">
+        Indexed in
+    </div>
+
+    <div class="card-body">
+        <marquee
+            height="136"
+            direction="up"
+            scrollamount="3"
+            onmouseover="this.stop();"
+            onmouseout="this.start();">
+
+            <?php if (!empty($index_in)) : ?>
+
+                <?php foreach ($index_in as $item) : ?>
+                    <?= html_entity_decode($item['index_name']); ?>
+                <?php endforeach; ?>
+
+            <?php else : ?>
+
+                <p class="text-muted text-center">Coming Soon</p>
+
+            <?php endif; ?>
+
+        </marquee>
     </div>
 </div>

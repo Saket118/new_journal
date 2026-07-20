@@ -2,41 +2,41 @@
 <html lang="en">
 
 <head>
-    <?php include_once "./include/link.php"; ?>
     <?php
-if (isset($_POST['register'])) {
-    if ($functions->registerUser($_POST)) {
+    include_once "./include/link.php";
+
+    $registrationResult = null;
+
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
+
+    $registrationResult = $functions->registerUser($_POST);
+
+    if ($registrationResult['status']) {
         echo "<script>
-                alert('Registration Successful');
+                alert('".$registrationResult['message']."');
                 window.location.href='register.php';
               </script>";
-        exit;
     } else {
         echo "<script>
-                alert('Registration Failed');
+                alert('".$registrationResult['message']."');
               </script>";
     }
 }
+
+
     $countries = $functions->getCountries();
-    echo $meta = $functions->meta_tag("Register", "", "", $base_url . "register.php");
+    echo $functions->meta_tag("Register", "", "", $base_url . "register.php");
     ?>
 
+  
 </head>
+
 <body>
     <?php include_once "./include/header.php"; ?>
 
-
-    <!-- Form Start -->
-    <div class="container-fluid">
+    <main class="container-fluid">
         <div class="row">
-
-            <div class="container">
-                <!-- <h2 class=""><?= !empty($page['meta_title']) ? $page['meta_title'] : "Register" ?></h2>    -->
-
-                <div>
-
-                </div>
-            </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 px-5">
                 <div class="m-lg-5 shadow">
 
@@ -120,8 +120,8 @@ if (isset($_POST['register'])) {
                                 <select id="country" name="country" class="form-select rounded-4 py-2">
                                     <option value="">Select Country</option>
                                     <?php foreach ($countries as $country) { ?>
-                                        <option value="<?= $country['id']; ?>">
-                                            <?= $country['country_name']; ?>
+                                        <option value="<?= (int) $country['id']; ?>">
+                                            <?= htmlspecialchars($country['country_name'], ENT_QUOTES, 'UTF-8'); ?>
                                         </option>
                                     <?php } ?>
                                 </select>
@@ -177,8 +177,6 @@ if (isset($_POST['register'])) {
                 </div>
             </div>
 
-            <!-- <div class="col-lg-1"></div> -->
-
             <div class="col-lg-3 py-5 d-none d-lg-block side_border">
                 <div class="overflow-hidden mb-4 text-center">
                     <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQE-foOGxTS37q7nRw-4-ya-ADt92BgnwX-z0iJA-vhpQ&s=10"
@@ -191,8 +189,7 @@ if (isset($_POST['register'])) {
             </div>
 
         </div>
-    </div>
-    <!-- Form End -->
+    </main>
 
     <?php include_once "./include/footer.php"; ?>
     <script>

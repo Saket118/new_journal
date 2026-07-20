@@ -20,7 +20,7 @@
 
             <div class="d-flex align-items-center gap-3">
 
-                <a href="<?= $base_url ?>" class="top-bar-link">
+                <a href="<?= $base_url ?>admin" class="top-bar-link">
                     <i class="bi bi-box-arrow-in-right"></i> Login
                 </a>
                 <a href="<?= $base_url ?>/register.php" class="top-bar-link">
@@ -40,7 +40,7 @@
                     <a href="#" class="">
 
                         <div class="journal-logo me-3">
-                            <img src="assets/images/" alt="Logo" class="img-fluid">
+                            <img src="<?= $base_url ?>assets/images/clogo.jpg" alt="Logo" class="img-fluid">
                         </div>
                     </a>
                     <div>
@@ -68,7 +68,9 @@
                         </div>
                     </div>
                 </div> -->
-<form action="<?= $base_url ?>search.php" method="GET">
+                <div class="col-md-4 col-lg-5 d-none d-md-block">
+                    <div class="d-flex justify-content-end">
+<form action="<?= $base_url ?>search.php" method="post">
     <div class="header-search">
         <input
             type="text"
@@ -81,6 +83,8 @@
         </button>
     </div>
 </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

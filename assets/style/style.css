@@ -45,13 +45,8 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .journal-logo {
-    width: 70px;
-    height: 70px;
-    border-radius: 50%;
-    overflow: hidden;
-    background: #fff;
-    padding: 4px;
-    box-shadow: 0 2px 8px rgba(15, 23, 42, .08);
+        width: 75px;
+    height: 75px;
 }
 
 .journal-title {
@@ -110,6 +105,19 @@ h1,h2,h3,h4,h5,h6{
 
 .dropdown-item-premium:hover {
     padding-left: 1.25rem !important;
+}
+.nav-pills .nav-link {
+    color: #000 !important;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.nav-pills .nav-link.active,
+.nav-pills .show > .nav-link {
+    background: #514018 !important;
+    color: #fff !important;
+    border-color: #514018 !important;
+    background-image: none !important;
 }
 
 .btn-cta-premium {
@@ -179,13 +187,13 @@ h1,h2,h3,h4,h5,h6{
 }
 
 .footer-links a {
-    color: black !important;
+    color: black ;
     text-decoration: none;
     transition: .25s;
 }
 
 .footer-links a:hover {
-    color: #514018 !important;
+    color: #514018 ;
     font-weight: 600;
     transform: translateX(5px);
 }
@@ -195,8 +203,7 @@ h1,h2,h3,h4,h5,h6{
 
 
 .footer-social-icon {
-    width: 35px;
-    height: 35px;
+ 
     background: #EBDAB2;
     /* display: inline-flex;
     align-items: center;

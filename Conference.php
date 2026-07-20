@@ -85,7 +85,7 @@ $events = $functions->getConferenceEvents();
 
                                             <td><?= htmlspecialchars($row['country']) ?></td>
 
-                                            <td><?= htmlspecialchars($row['title']) ?></td>
+                                            <td><?= strip_tags($row['title']) ?></td>
 
                                             <td class="text-center">
 

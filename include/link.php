@@ -1,7 +1,10 @@
 <?php
 $base_url= "http://localhost/new_journal/";
+
 include_once("./model/functions.php");
 $functions = new functions();
+$org_id= $functions->getOrgnazationData()["org_id"];
+
 ?>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">

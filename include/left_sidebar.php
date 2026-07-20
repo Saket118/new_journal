@@ -1,6 +1,7 @@
 
     <?php
     $chartData = $functions->getManuscriptChartData();
+    $ArticleStatistics = $functions->Article_Statistics();
 
     ?>
 
@@ -29,7 +30,7 @@
 
     <div class="card-body">
 
-        <form action="<?= $base_url ?>search.php" method="GET">
+        <form action="<?= $base_url ?>search.php" method="post">
 
             <div class="mb-3">
 
@@ -119,13 +120,19 @@
         <marquee height="136" onmouseover="this.stop()" onmouseout="this.start()" scrollamount="3" direction="up">
             <?php if (!empty($mostDownloaded)) { ?>
                 <?php foreach ($mostDownloaded as $article) { ?>
-                    <a href="<?= $base_url ?>abstract.php?article_id=<?= $article['article_id']; ?>"
+                  <?php        $title = strip_tags(html_entity_decode($article['title'], ENT_QUOTES, 'UTF-8'));
+
+$title = str_replace(
+    ['%0D%0A', '%2C','%3A'],
+    ['', ',',':'],
+    urlencode($title)); ?>
+                    <a href="<?= $base_url ?>fulltext.php?article_id=<?= $article['article_id'] ?>&title=<?= $title ?>"
                         class="text-decoration-none small mt-3 text-secondary d-block">
                         <?= $article['title']; ?>
                 </a>
             <?php } ?>
         <?php } else { ?>
-            <p class="text-muted mb-0">No articles found.</p>
+            <p class="text-muted mb-0">coming soon</p>
         <?php } ?>
 
         </marquee>
@@ -169,31 +176,92 @@
         <canvas id="manuscriptChart" height="250"></canvas>
     </div>
 </div>
+
+
+<div class="card mb-3 border-warning-subtle mt-2">
+    <div class="card-header bg-warning-subtle text-center text-dark fw-semibold p-1">
+        Article Statistics
+    </div>
+
+    <div class="card-body">
+        <canvas id="articleChart" height="250"></canvas>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <script>
-const data = <?= json_encode(array_column($chartData, 'total')); ?>;
-const colors = [
-    '#0d6efd','#ffc107','#20c997','#198754','#dc3545',
-    '#6f42c1','#fd7e14','#0dcaf0','#6610f2','#6c757d',
-    '#542c43','#3b4006'
-];
+const manuscriptLabels = <?= json_encode(array_column($chartData, 'phase_name')); ?>;
+const manuscriptData = <?= json_encode(array_column($chartData, 'total')); ?>;
+
+const manuscriptColors = manuscriptLabels.map(() =>
+    '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')
+);
 
 new Chart(document.getElementById('manuscriptChart'), {
     type: 'pie',
     data: {
+        labels: manuscriptLabels, 
         datasets: [{
-            data: data,
-            backgroundColor: colors,  
-             borderWidth: 0,          
+            data: manuscriptData,
+            backgroundColor: manuscriptColors,
+            borderWidth: 0
         }]
     },
     options: {
+        responsive: true,
         plugins: {
-            legend: { display: false },
+            legend: {
+                position: 'bottom'
+            },
             tooltip: {
                 callbacks: {
-                    label: ({raw, dataset}) =>
-                        ((raw / dataset.data.reduce((a,b) => a + Number(b), 0)) * 100).toFixed(1) + '%'
+                    label: function(context) {
+                         return context.label + ': ' + context.raw;
+                       }
+                }
+            }
+        }
+    }
+});
+
+const articleLabels = <?= json_encode(array_column($ArticleStatistics, 'article_name')); ?>;
+const articleData = <?= json_encode(array_column($ArticleStatistics, 'total')); ?>;
+
+const articleColors = articleLabels.map(() =>
+    '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')
+);
+
+new Chart(document.getElementById('articleChart'), {
+    type: 'bar',
+    data: {
+        labels: articleLabels,
+        datasets: [{
+            label: 'Articles',
+            data: articleData,
+            backgroundColor: articleColors,
+            borderRadius: 8
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: {
+                display: false
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return context.raw + " Articles";
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    precision: 0
                 }
             }
         }

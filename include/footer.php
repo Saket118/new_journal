@@ -21,9 +21,9 @@
                         <span class="d-block small text-uppercase text-dark fw-semibold mb-2"
                             style="font-size: 12px; letter-spacing: 0.5px;">Connect With Us</span>
                         <div class="d-flex gap-1">
-                            <a href="#" target="_blank" class="footer-social-icon d-inline-flex align-items-center justify-content-center rounded-2 text-secondary text-decoration-none"><i class="bi bi-facebook" style="color:#1877F2;"></i></a>
-                            <a href="#" target="_blank" class="footer-social-icon d-inline-flex align-items-center justify-content-center rounded-2 text-secondary text-decoration-none"><i class="bi bi-twitter-x" style="color:#000000;"></i></a>
-                            <a href="#" target="_blank" class="footer-social-icon d-inline-flex align-items-center justify-content-center rounded-2 text-secondary text-decoration-none"><i class="bi bi-linkedin" style="color:#0A66C2;"></i></a>
+                            <a href="#" target="_blank" class="footer-social-icon d-inline-flex align-items-center justify-content-center rounded-2 text-secondary text-decoration-none"><i class="bi bi-facebook fs-5 ms-3" style="color:#1877F2;"></i></a>
+                            <a href="#" target="_blank" class="footer-social-icon d-inline-flex align-items-center justify-content-center rounded-2 text-secondary text-decoration-none"><i class="bi bi-twitter-x fs-5 mx-2" style="color:#000000;"></i></a>
+                            <a href="#" target="_blank" class="footer-social-icon d-inline-flex align-items-center justify-content-center rounded-2 text-secondary text-decoration-none"><i class="bi bi-linkedin fs-5 me-2" style="color:#0A66C2;"></i></a>
                         </div>
                     </div>
                 </div>
@@ -33,16 +33,16 @@
                     <h6 class=" footer-heading-accent text-dark fw-semibold text-uppercase border-start border-3 border-dark mb-3">Important Links</h6>
                     <ul class="list-unstyled footer-links d-flex flex-column gap-3">
                         <!-- Gap badha kar 3 kiya text clear dikhne ke liye -->
-                        <li><a href="#"><i class=" bi bi-chevron-right small me-2 icon_color "></i> Archived Issues</a>
+                        <li><a href="<?=$base_url?>Archive.php"><i class=" bi bi-chevron-right small me-2 icon_color "></i> Archived Issues</a>
                         </li>
-                        <li><a href="#"><i class="bi bi-chevron-right small me-2 icon_color "></i> Editorial Board</a>
+                        <li><a href="<?=$base_url?>editorial_board.php"><i class="bi bi-chevron-right small me-2 icon_color "></i> Editorial Board</a>
                         </li>
-                        <li><a href="#"><i class="bi bi-chevron-right small me-2 icon_color "></i> Submit Manuscript</a>
+                        <li><a href="<?=$base_url?>submit_manuscript.php"><i class="bi bi-chevron-right small me-2 icon_color "></i> Submit Manuscript</a>
                         </li>
-                        <li><a href="#"><i class="bi bi-chevron-right small me-2 icon_color "></i> Author Guidelines</a>
+                        <li><a href="<?=$base_url?>author_guidelines.php"><i class="bi bi-chevron-right small me-2 icon_color "></i> Author Guidelines</a>
                         </li>
-                        <li><a href="#"><i class="bi bi-chevron-right small me-2 icon_color "></i> Abstracting &
-                                Indexing</a></li>
+                        <!-- <li><a href="#"><i class="bi bi-chevron-right small me-2 icon_color "></i> Abstracting &
+                                Indexing</a></li> -->
                     </ul>
                 </div>
 
@@ -98,20 +98,22 @@
             <div class="container">
                 <div class="row g-3 align-items-center justify-content-between flex-column flex-md-row text-dark"
                     style="font-size: 13.5px;">
-                    <div class="col text-center text-md-start opacity-75">
+                    <div class="col text-center text-md-start text-light opacity-75">
                         &copy; 2011-2026 Open Science Publishers LLP. All Institutional Rights Reserved.
                     </div>
                     <div class="col text-center text-md-end footer-links">
-                        <a href="#" class="mx-2">Terms</a> <span class="opacity-25">|</span>
-                        <a href="#" class="mx-2">Privacy Protocol</a> <span class="opacity-25">|</span>
-                        <a href="#" class="mx-2">Cookies</a>
+                        <a href="#" class="mx-2 text-light">Terms</a> <span class="opacity-25">|</span>
+                        <a href="#" class="mx-2 text-light">Privacy Protocol</a> <span class="opacity-25">|</span>
+                        <a href="#" class="mx-2 text-light">Cookies</a>
                     </div>
                 </div>
             </div>
         </div>
     </footer>
 
-
+      <script>
+var base_url = "<?php echo $base_url; ?>";
+</script>
        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
         crossorigin="anonymous"></script>
@@ -138,4 +140,32 @@
       });
     });
   });
+</script>
+
+<script>
+
+function update(articleId, action, url) {
+
+
+    fetch(base_url + "update.php", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: "article_id=" + encodeURIComponent(articleId) +
+              "&action=" + encodeURIComponent(action)
+    })
+    .then(response => response.text())
+    .then(data => {
+        window.location.href = url;
+    })
+    .catch(error => {
+        console.error(error);
+        // Open the page even if the update fails
+        window.location.href = url;
+    });
+
+    return false; // Stop the default link action
+}
+
 </script>
