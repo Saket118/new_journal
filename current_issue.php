@@ -48,7 +48,7 @@ $title = str_replace(
               </span>
 
               <h5 class="fw-bold mb-3">
-                <a href="<?= $base_url ?>fulltext.php?article_id=<?= $article['article_id'] ?>&title=<?= $title ?>" class="text-decoration-none text-black">
+                <a href="<?= $base_url ?>abstract.php?article_id=<?= $article['article_id'] ?>&title=<?= $title ?>" class="text-decoration-none text-black">
                   <?= $article['title']; ?>
                 </a>
               </h5>
@@ -58,11 +58,15 @@ $title = str_replace(
                 <?= $article['authors']; ?>
               </p>
 
-              <p class="text-muted fst-italic mb-1">
+             
+               <div class="d-flex flex-wrap gap-3  mb-3">
+                <p class="text-muted fst-italic mb-1">
                 <?= $issue['issue']['issue_no']; ?>,
                 Pages <?= $article['pages']; ?>
               </p>
-
+              <span class="text-muted">|</span>
+               <?= $functions->shareButtons($article['article_id'], $base_url ); ?>
+               </div>
               <hr>
 
               <div class="d-flex flex-wrap gap-4 small text-muted mb-3">

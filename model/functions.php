@@ -917,8 +917,49 @@ public function curr_issue_img()
 
 }
 
+//////////////share button///////////////
+    public function shareButtons($articleId, $base_url)
+    {
+        $url = $base_url . "abstract.php?article_id=" . $articleId;
 
+        return '
+    <div class="share-wrapper position-relative d-inline-block">
+
+      <a class="text-black fw-bold btn-sm share-toggle" style="cursor:pointer;">
+      <i class="bi bi-share-fill "></i>
+     </a>
+
+        <div class="share-menu bg-white border rounded shadow p-2"
+             style="display:none; position:absolute; top:-13px; left:30px; z-index:999; white-space:nowrap;">
+
+         <a href="https://api.whatsapp.com/send?text=' . $url . '" target="_blank" class="text-success text-decoration-none mx-2">
+      <i class="bi bi-whatsapp fs-5"></i>
+    </a>
+
+<a href="https://www.facebook.com/sharer.php?u=' . $url . '" target="_blank" class="text-primary text-decoration-none mx-2">
+    <i class="bi bi-facebook fs-5"></i>
+</a>
+
+<a href="https://www.linkedin.com/login/?session_redirect=' . $url . '" target="_blank" class="text-primary text-decoration-none mx-2">
+    <i class="bi bi-linkedin fs-5"></i>
+</a>
+
+<a href="mailto:?body=' . $url . '" class="text-dark text-decoration-none mx-2">
+    <i class="bi bi-envelope-fill fs-5"></i>
+</a>
+
+<a href="https://twitter.com/intent/tweet?url=' . $url . '" target="_blank" class="text-dark text-decoration-none mx-2">
+    <i class="bi bi-twitter-x fs-5"></i>
+</a>
+
+        </div>
+
+    </div>';
     }
+
+
+
+}
 
 
 

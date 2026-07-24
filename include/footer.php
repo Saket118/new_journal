@@ -169,3 +169,17 @@ function update(articleId, action, url) {
 }
 
 </script>
+<script>
+document.addEventListener("click", e => {
+    const wrapper = e.target.closest(".share-wrapper");
+    const menu = wrapper?.querySelector(".share-menu");
+
+    document.querySelectorAll(".share-menu").forEach(m => {
+        if (m !== menu) m.style.display = "none";
+    });
+
+    if (menu) {
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
+    }
+});
+</script>

@@ -132,6 +132,10 @@
                     <a class="nav-link nav-link-premium" href="<?= $base_url ?>Archive.php">Archives</a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link nav-link-premium" href="<?= $base_url ?>news.php">News</a>
+                </li>
+
 
                 <!-- <li class="nav-item">
                     <a class="nav-link nav-link-premium" href="#">Online Submission</a>

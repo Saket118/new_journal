@@ -126,7 +126,7 @@ $title = str_replace(
     ['%0D%0A', '%2C','%3A'],
     ['', ',',':'],
     urlencode($title)); ?>
-                    <a href="<?= $base_url ?>fulltext.php?article_id=<?= $article['article_id'] ?>&title=<?= $title ?>"
+                    <a href="<?= $base_url ?>abstract.php?article_id=<?= $article['article_id'] ?>&title=<?= $title ?>"
                         class="text-decoration-none small mt-3 text-secondary d-block">
                         <?= $article['title']; ?>
                 </a>

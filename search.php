@@ -55,11 +55,18 @@ $title = str_replace(
                                         <?= $article['authors']; ?>
                                     </p>
 
-                                    <p class="text-muted fst-italic mb-2">
-                                        <?= $article['issue_no']; ?>,
-                                        Pages <?= $article['pages']; ?>
-                                    </p>
-
+                                  
+ <div class="d-flex flex-wrap gap-3  mb-3">
+                                                  <p class="text-muted fst-italic mb-2">
+                                 <?= $article['issue_no']; ?>,
+        Pages <?= $article['pages']; ?>
+    </p>
+    <span class="text-muted">|</span>
+    <?= $functions->shareButtons(
+                $article['article_id'],
+                $base_url
+            ); ?>
+</div>
                                     <hr>
 
                                     <div class="d-flex flex-wrap gap-4 small text-muted mb-3">
